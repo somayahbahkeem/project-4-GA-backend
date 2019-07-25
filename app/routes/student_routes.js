@@ -15,8 +15,8 @@
   
   //index students
   // router.get('/examples', requireToken, (req, res, next) => {
-  router.get('/students', requireToken, (req, response, next) => {
-    Student.find({"owner":req.user.id})
+  router.get('/cources/:cources_id/students', requireToken, (req, response, next) => {
+    Student.find({"cours":req.params.cources_id})
     .then((students)=> {
       response.status(200).json({students:students})
     })
@@ -33,11 +33,12 @@
           res.status(200).json({student: student})
         })
         .catch(next)
-  })
+  }) 
     //create student
-  router.post('/students', requireToken, (req, res, next) => {
+  router.post('/cources/:cources_id/students/', requireToken, (req, res, next) => {
       const newStudent = req.body.student
-      
+      const courcesId = req.params.cources_id
+      newStudent.cours = courcesId
       newStudent.owner = req.user.id
       console.log(newStudent)
 

@@ -1,10 +1,6 @@
 const mongoose = require('mongoose')
 
 const attendeesSchema = new mongoose.Schema({
-    // dateTime: {
-    //     type: Date,
-    //     // required: true
-    // },
     record:  {
         type: String,
         required: true,

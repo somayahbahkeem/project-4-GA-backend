@@ -18,6 +18,11 @@ const studentSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'User',
         required:true
+    },
+    cours:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Cours',
+        required:true
     }
 }, {
     timestamps: true

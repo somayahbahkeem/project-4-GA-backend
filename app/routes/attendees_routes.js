@@ -64,13 +64,13 @@
 //update attendees
   router.put('/attendees/:id', requireToken, (req, res, next) => {
     delete req.body.attendees.owner
-  
+
     const id = req.params.id 
     const updatedAttendees = req.body.attendees
     Attendees.findById(id)
     .then( (attendees) => {
       requireOwnership(req, attendees)
-      return attendees.update(updatedattendees)
+      return attendees.update(updatedAttendees)
     })
     .then( attendees => res.status(200).json({attendees: attendees}))
     .catch(next)
