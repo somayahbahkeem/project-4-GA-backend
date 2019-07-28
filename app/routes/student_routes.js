@@ -37,6 +37,7 @@
     //create student
   router.post('/cources/:cources_id/students/', requireToken, (req, res, next) => {
       const newStudent = req.body.student
+      
       const courcesId = req.params.cources_id
       newStudent.cours = courcesId
       newStudent.owner = req.user.id

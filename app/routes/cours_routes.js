@@ -61,15 +61,17 @@
     })
     .catch(next)
   })
+
 //update cources
   router.put('/cources/:id', requireToken, (req, res, next) => {
     delete req.body.cours.owner
   
     const id = req.params.id 
     const updatedCours = req.body.cours
-    console.log(updatedCours)
+    console.log("course update", updatedCours)
     Cours.findById(id)
     .then( (cours) => {
+      console.log("cours", cours)
       requireOwnership(req, cours)
       return cours.update(updatedCours)
     })
