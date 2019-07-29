@@ -35,7 +35,7 @@
         .catch(next)
   })
     //create attendees
-  router.post('/students/:student_id/attendees/create', requireToken, (req, res, next) => {
+  router.post('/students/:student_id/attendees/', requireToken, (req, res, next) => {
       const newAttendees = req.body.attendees
       const studentId = req.params.student_id
       newAttendees.student = studentId
