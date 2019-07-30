@@ -40,13 +40,50 @@
       const studentId = req.params.student_id
       newAttendees.student = studentId
       newAttendees.owner = req.user.id
-      console.log(newAttendees)
+      let newDay;
+      let newMonth;
+      let Lastday;
+      let Lastmonth;
+      let newAttend;
+      Attendees.create(newAttendees)
+      .then((attendee) => {
+        newAttend = attendee
+        newDay = attendee.createdAt.getDate()
+        newMonth = attendee.createdAt.getMonth() + 1
+        console.log('newday:' + newDay + ',newMonth:'+newMonth)
+        console.log(attendee.createdAt)
+      })
+              .then( attendees => {
+                Attendees.find({"student":studentId})
+                .then((attendeesOfStudent) => {
+                 Lastday = attendeesOfStudent[attendeesOfStudent.length-2].createdAt.getDate()
+                // the month in js start at 0, so 0 => Jan
+                 Lastmonth = attendeesOfStudent[attendeesOfStudent.length-2].createdAt.getMonth() + 1
+                console.log('day:' +  Lastday + ',month:' + Lastmonth)
+                console.log(attendeesOfStudent[attendeesOfStudent.length-2].createdAt)
+                
+                if( Lastmonth != newMonth || Lastday != newDay  ){
+                  // console.log('created')
+                  res.status(201).json({ attendees: attendees })
+                }else{
+                  // console.log('deleted')
+                  requireOwnership(req, newAttend)
+                   newAttend.remove()
+                   res.sendStatus(204)
+                  
+                }
+              })  
 
-       Attendees.create(newAttendees)
-       .then( attendees => {
-         res.status(201).json({ attendees: attendees })
-       })
-      .catch(next)
+                
+      })
+     .catch(next)
+     
+      
+      //  Attendees.create(newAttendees)
+      //  .then( attendees => {
+      //    res.status(201).json({ attendees: attendees })
+      //  })
+      // .catch(next)
   })
   //delete attendees
   router.delete('/attendees/:id', requireToken, (req, res, next) => {

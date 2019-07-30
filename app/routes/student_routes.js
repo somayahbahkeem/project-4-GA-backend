@@ -22,6 +22,15 @@
     })
       .catch(next)
   })
+
+  router.get('/cources/:cources_id/students/AttendeesRecurd', requireToken, (req, response, next) => {
+    Student.find({"cours":req.params.cources_id})
+    .populate('attendees')
+    .then((students)=> {
+      response.status(200).json({students:students})
+    })
+      .catch(next)
+  })
     //show student
   router.get('/students/:id', requireToken, (req, res, next) => {
         // get the ID from the params

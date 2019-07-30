@@ -30,7 +30,10 @@ const studentSchema = new mongoose.Schema({
         required:true
     }
 }, {
-    timestamps: true
+    timestamps: true,
+    toJSON: {
+        virtuals: true
+    }
 })
 
 studentSchema.virtual('attendees', {
