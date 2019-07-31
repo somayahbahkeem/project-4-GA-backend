@@ -22,6 +22,15 @@
     })
       .catch(next)
   })
+
+  router.get('/courcesList', (req, response, next) => {
+    Cours.find()
+    .then((cources)=> {
+      response.status(200).json({cources:cources})
+    })
+      .catch(next)
+  })
+
     //show cources
   router.get('/cources/:id', requireToken, (req, res, next) => {
         // get the ID from the params

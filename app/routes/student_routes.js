@@ -23,7 +23,7 @@
       .catch(next)
   })
 
-  router.get('/cources/:cources_id/students/AttendeesRecurd', requireToken, (req, response, next) => {
+  router.get('/cources/:cources_id/students/AttendeesRecurd', (req, response, next) => {
     Student.find({"cours":req.params.cources_id})
     .populate('attendees')
     .then((students)=> {
@@ -85,5 +85,20 @@
     .then( student => res.status(200).json({student: student}))
     .catch(next)
   })
+
+      //search student
+      router.get('/students/search/:email', (req, response, next) => {
+        const email=req.params.email
+        console.log(email)
+        Student.findOne({email: email})
+        .populate('attendees')
+        .then((student)=> {
+          console.log(student)
+          // return 
+          response.status(200).json({student:student})
+        })
+        // .then (response.status(200).json({Student:Student}))
+          .catch(next)
+      })
   
   module.exports = router
