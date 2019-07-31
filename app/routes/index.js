@@ -14,7 +14,7 @@ router.get('/email/template/:student_id', (req, res, next) => {
 
       MailConfig.ViewOption(gmailTransport,hbs);
       let HelperOptions = {
-        from: '"GA Admin" <test.misk.ga@gmail.com>',
+        from: '"GA Admin" <Test.misk.ga@gmail.com>',
         to:student.email,
         subject: 'Warning Message!',
         template: 'test',
@@ -32,14 +32,7 @@ router.get('/email/template/:student_id', (req, res, next) => {
         console.log(info);
         res.json(info)
       });
-
-
-
-
     })
-
-
-
 });
 
 module.exports = router
