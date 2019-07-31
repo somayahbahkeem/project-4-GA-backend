@@ -86,7 +86,7 @@
     .catch(next)
   })
 
-      //search student
+      // search student
       router.get('/students/search/:email', (req, response, next) => {
         const email=req.params.email
         console.log(email)
